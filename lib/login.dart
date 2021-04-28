@@ -1,15 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-String user_id;
+import 'package:http/http.dart' as http;
 
-void doLogin() async {
-  //nantinya ada pengecekan master_user melalui webservice
-  final prefs = await SharedPreferences.getInstance();
-  prefs.setString("user_id", user_id);
-  main();
-}
+String user_id, password, error_login = '';
+
+// void doLogin() async {
+//   //nantinya ada pengecekan master_user melalui webservice
+//   final prefs = await SharedPreferences.getInstance();
+//   prefs.setString("user_id", user_id);
+//   main();
+// }
 
 void doLogout() async {
   //nantinya ada pengecekan master_user melalui webservice
@@ -45,6 +49,27 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  void doLogin() async {
+    final response = await http.post(
+        Uri.parse("http://ubaya.prototipe.net/daniel/login.php"),
+        body: {'user_id': user_id, 'user_password': password});
+    if (response.statusCode == 200) {
+      Map json = jsonDecode(response.body);
+      if (json['result'] == 'success') {
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setString("user_id", user_id);
+        prefs.setString("user_name", json['user_name']);
+        main();
+      } else {
+        setState(() {
+          error_login = "User id atau password error";
+        });
+      }
+    } else {
+      throw Exception('Failed to read API');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,6 +96,9 @@ class _LoginState extends State<Login> {
               padding: EdgeInsets.all(10),
               //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
+                onChanged: (value) {
+                  password = value;
+                },
                 obscureText: true,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -78,6 +106,7 @@ class _LoginState extends State<Login> {
                     hintText: 'Enter secure password'),
               ),
             ),
+            Padding(padding: EdgeInsets.all(10), child: Text(error_login)),
             Padding(
                 padding: EdgeInsets.all(10),
                 child: Container(
@@ -86,7 +115,7 @@ class _LoginState extends State<Login> {
                   decoration: BoxDecoration(
                       color: Colors.blue,
                       borderRadius: BorderRadius.circular(20)),
-                  child: FlatButton(
+                  child: TextButton(
                     onPressed: () {
                       doLogin();
                     },

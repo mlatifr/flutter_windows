@@ -101,15 +101,6 @@ void main() {
       'http://ubaya.prototipe.net/s160418012/images/8.jpg'));
 
   WidgetsFlutterBinding.ensureInitialized();
-
-  getTopScore().then((int result) {
-    if (result == null) {
-      // print('result = ' + result.toString() + ' nilai= ' + nilai.toString());
-      result = 0;
-    } else {
-      print('ini jalan di main. result= ' + result.toString());
-    }
-  });
   cekLogin().then((String result) {
     if (result == '')
       runApp(MyLogin());
@@ -118,6 +109,15 @@ void main() {
       runApp(MyApp());
     }
   });
+  getTopScore().then((int result) {
+    if (result == null) {
+      // print('result = ' + result.toString() + ' nilai= ' + nilai.toString());
+      result = 0;
+    } else {
+      print('ini jalan di main. result= ' + result.toString());
+    }
+  });
+
   // runApp(MyApp());
 // runApp(MyLogin());
 }
