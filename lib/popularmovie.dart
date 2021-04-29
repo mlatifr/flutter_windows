@@ -2,22 +2,24 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'detailpop.dart';
+
 List<PopMovie> PMs = [];
 
 // class PopMovie ==> menampung object
 class PopMovie {
-  final int id;
+  final int moive_id;
   final String title;
   final String overview;
   final String vote_average;
 
   // parameter dari class PopMovie
-  PopMovie({this.id, this.title, this.overview, this.vote_average});
+  PopMovie({this.moive_id, this.title, this.overview, this.vote_average});
 
   // factory untuk convert jason MAP ==> array of obaject
   factory PopMovie.fromJson(Map<String, dynamic> json) {
     return PopMovie(
-      id: json['movie_id'],
+      moive_id: json['movie_id'],
       title: json['title'],
       overview: json['overview'],
       vote_average: json['vote_average'],
@@ -44,7 +46,8 @@ class _PopularMovieState extends State<PopularMovie> {
     if (response.statusCode == 200) {
       // print('responnya : ' + response.body);
       // Future.delayed ==> untuk delay agar muncul gbr loadingnya
-      return Future.delayed(Duration(seconds: 1), () => response.body);
+      // return Future.delayed(Duration(seconds: 1), () => response.body);
+      return response.body;
     } else {
       throw Exception('Failed to read API');
     }
@@ -85,7 +88,18 @@ class _PopularMovieState extends State<PopularMovie> {
                         Icons.movie,
                         size: 30,
                       ),
-                      title: Text(PMs[index].title),
+                      title: GestureDetector(
+                          child: Text(PMs[index].title),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    DetailPop(movie_id: PMs[index].moive_id),
+                              ),
+                            );
+                          }),
+                      // title: Text(PMs[index].title),
                       subtitle: Text(PMs[index].overview),
                     ),
                     // new Text(
