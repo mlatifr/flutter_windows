@@ -12,9 +12,15 @@ class PopMovie {
   final String title;
   final String overview;
   final String vote_average;
+  final List genres;
 
   // parameter dari class PopMovie
-  PopMovie({this.moive_id, this.title, this.overview, this.vote_average});
+  PopMovie(
+      {this.moive_id,
+      this.title,
+      this.overview,
+      this.vote_average,
+      this.genres});
 
   // factory untuk convert jason MAP ==> array of obaject
   factory PopMovie.fromJson(Map<String, dynamic> json) {
@@ -23,6 +29,7 @@ class PopMovie {
       title: json['title'],
       overview: json['overview'],
       vote_average: json['vote_average'],
+      genres: json['genres'],
     );
   }
 }

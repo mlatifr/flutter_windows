@@ -57,6 +57,15 @@ class _DetailPopState extends State<DetailPop> {
             Padding(
                 padding: EdgeInsets.all(10),
                 child: Text(pm.overview, style: TextStyle(fontSize: 15))),
+            Padding(padding: EdgeInsets.all(10), child: Text("Genre:")),
+            Padding(
+                padding: EdgeInsets.all(10),
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: pm.genres.length,
+                    itemBuilder: (BuildContext ctxt, int index) {
+                      return new Text(pm.genres[index]['genre_name']);
+                    }))
           ]));
     } else {
       return CircularProgressIndicator();
