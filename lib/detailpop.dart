@@ -36,7 +36,9 @@ class _DetailPopState extends State<DetailPop> {
   // tahap 3
   Future<String> fetchData() async {
     final response = await http
-        .post(Uri.parse("http://ubaya.prototipe.net/daniel/detailmovie.php"),
+        // .post(Uri.parse("http://ubaya.prototipe.net/daniel/detailmovie.php"),
+        .post(
+            Uri.parse("http://localhost/emertech/local/detailmovie_actors.php"),
             // parameter dikirim ke API
             body: {'id': widget.movie_id.toString()});
     if (response.statusCode == 200) {
@@ -65,6 +67,16 @@ class _DetailPopState extends State<DetailPop> {
                     itemCount: pm.genres.length,
                     itemBuilder: (BuildContext ctxt, int index) {
                       return new Text(pm.genres[index]['genre_name']);
+                    })),
+            Padding(
+                padding: EdgeInsets.all(10),
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: pm.actors.length,
+                    itemBuilder: (BuildContext ctxt, int index) {
+                      return new Text(pm.actors[index]['person_name'] +
+                          ' as ' +
+                          pm.actors[index]['character_name']);
                     }))
           ]));
     } else {
