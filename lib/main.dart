@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/listactor.dart';
+import 'package:flutter_application_1/newpopmovie.dart';
 import 'package:flutter_application_1/popularmovie.dart';
 import 'animasi.dart';
 import 'nilaipemain.dart';
@@ -114,7 +115,7 @@ void main() {
       // print('result = ' + result.toString() + ' nilai= ' + nilai.toString());
       result = 0;
     } else {
-      print('ini jalan di main. result= ' + result.toString());
+      // print('ini jalan di main. result= ' + result.toString());
     }
   });
 
@@ -430,6 +431,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     image: AssetImage('assets/images/bg.jpg'),
                   ),
                 ),
+              ),
+              ListTile(
+                title: Text('New Popular Movies'),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => NewPopMovie()));
+                },
               ),
               ListTile(
                 title: Text('Popular Movies'),

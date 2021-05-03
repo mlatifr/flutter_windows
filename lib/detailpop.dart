@@ -26,7 +26,7 @@ class _DetailPopState extends State<DetailPop> {
   // tahap 2
   bacaData() {
     fetchData().then((value) {
-      print('isi value $value');
+      // print('isi value $value');
       Map json = jsonDecode(value);
       pm = PopMovie.fromJson(json['data']);
       setState(() {});
@@ -38,9 +38,13 @@ class _DetailPopState extends State<DetailPop> {
     final response = await http
         // .post(Uri.parse("http://ubaya.prototipe.net/daniel/detailmovie.php"),
         .post(
-            Uri.parse("http://localhost/emertech/local/detailmovie_actors.php"),
+            // Uri.parse("http://localhost/emertech/local/detailmovie_actors.php"),
+            Uri.parse(
+                "http://192.168.1.2/emertech/local/detailmovie_actors.php"),
+
             // parameter dikirim ke API
             body: {'id': widget.movie_id.toString()});
+    // print(response.body);
     if (response.statusCode == 200) {
       return response.body;
     } else {
