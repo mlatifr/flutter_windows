@@ -2,12 +2,94 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
+import 'popularmovie.dart';
+
 class EditPopMovie extends StatefulWidget {
+  final int movie_id;
+
+  const EditPopMovie({Key key, this.movie_id}) : super(key: key);
   @override
   _EditPopMovieState createState() => _EditPopMovieState();
 }
 
+PopMovie pm;
+
 class _EditPopMovieState extends State<EditPopMovie> {
+  // tahap 2
+  bacaData() {
+    fetchData().then((value) {
+      print('isi value $value');
+      Map json = jsonDecode(value);
+      pm = PopMovie.fromJson(json['data']);
+      setState(() {});
+    });
+  }
+
+  // tahap 3
+  Future<String> fetchData() async {
+    final response = await http
+        // .post(Uri.parse("http://ubaya.prototipe.net/daniel/detailmovie.php"),
+        .post(
+            // Uri.parse("http://localhost/emertech/local/detailmovie_actors.php"),
+            Uri.parse("http://192.168.1.2/emertech/local/editmovie.php"),
+
+            // parameter dikirim ke API
+            body: {'id': widget.movie_id.toString()});
+    // print(response.body);
+    if (response.statusCode == 200) {
+      print(response.body);
+      return response.body;
+    } else {
+      throw Exception('Failed to read API');
+    }
+  }
+
+  // tahap 4
+  Widget tampilData() {
+    if (pm != null) {
+      return Card(
+          elevation: 10,
+          margin: EdgeInsets.all(10),
+          child: Column(children: <Widget>[
+            Text(pm.title, style: TextStyle(fontSize: 25)),
+            Padding(
+                padding: EdgeInsets.all(10),
+                child: Text(pm.overview, style: TextStyle(fontSize: 15))),
+            Padding(padding: EdgeInsets.all(10), child: Text("Genre:")),
+            Padding(
+                padding: EdgeInsets.all(10),
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: pm.genres.length,
+                    itemBuilder: (BuildContext ctxt, int index) {
+                      return new Text(pm.genres[index]['genre_name']);
+                    })),
+            Padding(
+                padding: EdgeInsets.all(10),
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: pm.actors.length,
+                    itemBuilder: (BuildContext ctxt, int index) {
+                      return new Text(pm.actors[index]['person_name'] +
+                          ' as ' +
+                          pm.actors[index]['character_name']);
+                    })),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => EditPopMovie()));
+                },
+                child: Text('Edit'),
+              ),
+            ),
+          ]));
+    } else {
+      return CircularProgressIndicator();
+    }
+  }
+
   String _title, _homepage, _overview = "";
   final _controllerdate = TextEditingController();
 
@@ -37,7 +119,7 @@ class _EditPopMovieState extends State<EditPopMovie> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Title(color: Colors.blue, child: Text('New Popular Movie')),
+        title: Title(color: Colors.blue, child: Text('Edit Popular Movie')),
       ),
       body: Form(
           key: _formKey,
