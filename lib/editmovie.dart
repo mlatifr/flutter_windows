@@ -2,19 +2,19 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
-class NewPopMovie extends StatefulWidget {
+class EditPopMovie extends StatefulWidget {
   @override
-  _NewPopMovieState createState() => _NewPopMovieState();
+  _EditPopMovieState createState() => _EditPopMovieState();
 }
 
-class _NewPopMovieState extends State<NewPopMovie> {
+class _EditPopMovieState extends State<EditPopMovie> {
   String _title, _homepage, _overview = "";
   final _controllerdate = TextEditingController();
 
   void submit() async {
     final response = await http.post(
         // Uri.parse("http://ubaya.prototipe.net/daniel/newmovie.php"),
-        Uri.parse("http://192.168.1.2/emertech/local/newmovie.php"),
+        Uri.parse("http://192.168.1.2/emertech/local/editmovie.php"),
         body: {
           'title': _title,
           'overview': _overview,
@@ -22,7 +22,6 @@ class _NewPopMovieState extends State<NewPopMovie> {
           'release_date': _controllerdate.text
         });
     if (response.statusCode == 200) {
-      // print(_overview.runtimeType);
       Map json = jsonDecode(response.body);
       if (json['result'] == 'success') {
         ScaffoldMessenger.of(context)
@@ -92,7 +91,7 @@ class _NewPopMovieState extends State<NewPopMovie> {
                       _overview = value;
                     },
                     keyboardType: TextInputType.multiline,
-                    minLines: 1,
+                    minLines: 3,
                     maxLines: 6,
                   )),
               Padding(

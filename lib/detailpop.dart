@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/editmovie.dart';
 import 'package:http/http.dart' as http;
 import 'popularmovie.dart';
 
@@ -26,7 +27,7 @@ class _DetailPopState extends State<DetailPop> {
   // tahap 2
   bacaData() {
     fetchData().then((value) {
-      // print('isi value $value');
+      print('isi value $value');
       Map json = jsonDecode(value);
       pm = PopMovie.fromJson(json['data']);
       setState(() {});
@@ -81,7 +82,17 @@ class _DetailPopState extends State<DetailPop> {
                       return new Text(pm.actors[index]['person_name'] +
                           ' as ' +
                           pm.actors[index]['character_name']);
-                    }))
+                    })),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => EditPopMovie()));
+                },
+                child: Text('Edit'),
+              ),
+            ),
           ]));
     } else {
       return CircularProgressIndicator();
