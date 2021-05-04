@@ -47,7 +47,8 @@ class _PopularMovieState extends State<PopularMovie> {
   String _temp = 'menunggu API';
   Future<String> fetchData() async {
     final response = await http.post(
-        Uri.http("ubaya.prototipe.net", '/daniel/movielist.php'),
+        // Uri.http("ubaya.prototipe.net", '/daniel/movielist.php'),
+        Uri.http("192.168.1.2", '/emertech/local/movielist.php'),
         body: {'cari': _txtcari});
 
     // final response = await http
