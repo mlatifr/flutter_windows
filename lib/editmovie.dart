@@ -85,7 +85,7 @@ class _EditPopMovieState extends State<EditPopMovie> {
   // }
 
   String _title, _homepage, _overview = "";
-  final _controllerdate = TextEditingController();
+  final _controllerdate = TextEditingController()..text = editpm.release_date;
 
   // untuk kirim edit data
   void submit() async {
@@ -175,7 +175,7 @@ class _EditPopMovieState extends State<EditPopMovie> {
                 children: [
                   Expanded(
                       child: TextFormField(
-                    // initialValue: editpm.release_date.toString(),
+                    // initialValue: editpm.release_date,
                     decoration: const InputDecoration(
                       labelText: 'Release Date',
                     ),
@@ -237,15 +237,19 @@ class _EditPopMovieState extends State<EditPopMovie> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Title(color: Colors.blue, child: Text('Edit Popular Movie')),
-      ),
-      body: Form(
-          key: _formKey,
-          child: ListView(
-            children: <Widget>[formEdit()],
-          )),
-    );
+    try {
+      return Scaffold(
+        appBar: AppBar(
+          title: Title(color: Colors.blue, child: Text('Edit Popular Movie')),
+        ),
+        body: Form(
+            key: _formKey,
+            child: ListView(
+              children: <Widget>[formEdit()],
+            )),
+      );
+    } catch (e) {
+      print('error nya adalah: $e');
+    }
   }
 }
