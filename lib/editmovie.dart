@@ -18,13 +18,15 @@ List<PopMovie> EditPM = [];
 class _EditPopMovieState extends State<EditPopMovie> {
   // tahap 2
   bacaData() {
+    EditPM.clear();
     fetchData().then((value) {
       Map json = jsonDecode(value);
       for (var item in json['data']) {
-        PopMovie editpm = PopMovie.fromJson(item);
+        print(item);
+        editpm = PopMovie.fromJson(item);
         EditPM.add(editpm);
       }
-
+      // print(editpm.title[0]);
       setState(() {});
     });
   }
@@ -40,6 +42,42 @@ class _EditPopMovieState extends State<EditPopMovie> {
       return response.body;
     } else {
       throw Exception('Failed to read API');
+    }
+  }
+
+  // tahap 4
+  Widget tampilData() {
+    if (editpm != null) {
+      return Card(
+          elevation: 10,
+          margin: EdgeInsets.all(10),
+          child: Column(children: <Widget>[
+            Text(editpm.title, style: TextStyle(fontSize: 25)),
+            Padding(
+                padding: EdgeInsets.all(10),
+                child: Text(editpm.overview, style: TextStyle(fontSize: 15))),
+            Padding(padding: EdgeInsets.all(10), child: Text("Genre:")),
+            Padding(
+                padding: EdgeInsets.all(10),
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: editpm.genres.length,
+                    itemBuilder: (BuildContext ctxt, int index) {
+                      return new Text(editpm.genres[index]['genre_name']);
+                    })),
+            Padding(
+                padding: EdgeInsets.all(10),
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: editpm.actors.length,
+                    itemBuilder: (BuildContext ctxt, int index) {
+                      return new Text(editpm.actors[index]['person_name'] +
+                          ' as ' +
+                          editpm.actors[index]['character_name']);
+                    })),
+          ]));
+    } else {
+      return CircularProgressIndicator();
     }
   }
 

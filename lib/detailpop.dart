@@ -27,7 +27,7 @@ class _DetailPopState extends State<DetailPop> {
   // tahap 2
   bacaData() {
     fetchData().then((value) {
-      print('isi value $value');
+      // print('isi value $value');
       Map json = jsonDecode(value);
       pm = PopMovie.fromJson(json['data']);
       setState(() {});
@@ -109,7 +109,7 @@ class _DetailPopState extends State<DetailPop> {
                               movie_id: widget.movie_id,
                             )));
               },
-              child: Text('Edit'),
+              child: Text('Edit ' + widget.movie_id.toString()),
             ),
           ),
         ]));
