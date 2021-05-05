@@ -21,8 +21,9 @@ class _EditPopMovieState extends State<EditPopMovie> {
     EditPM.clear();
     fetchData().then((value) {
       Map json = jsonDecode(value);
+      // print(json);
       for (var item in json['data']) {
-        // print(item);
+        print(item);
         editpm = PopMovie.fromJson(item);
         EditPM.add(editpm);
       }
@@ -116,7 +117,7 @@ class _EditPopMovieState extends State<EditPopMovie> {
               ' ' +
               angkaReload.toString() +
               ' ' +
-              _title.toString() +
+              editpm.release_date.toString() +
               ' '),
           Padding(
               padding: EdgeInsets.all(10),
@@ -174,7 +175,7 @@ class _EditPopMovieState extends State<EditPopMovie> {
                 children: [
                   Expanded(
                       child: TextFormField(
-                    initialValue: editpm.realese_date,
+                    // initialValue: editpm.release_date.toString(),
                     decoration: const InputDecoration(
                       labelText: 'Release Date',
                     ),

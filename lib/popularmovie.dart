@@ -9,7 +9,7 @@ List<PopMovie> PMs = [];
 // class PopMovie ==> menampung object
 class PopMovie {
   final int moive_id;
-  final String title, overview, homepage, vote_average, realese_date;
+  final String title, overview, homepage, vote_average, release_date;
   final List genres, actors;
 
   // parameter dari class PopMovie
@@ -19,7 +19,7 @@ class PopMovie {
       this.overview,
       this.homepage,
       this.vote_average,
-      this.realese_date,
+      this.release_date,
       this.genres,
       this.actors});
 
@@ -32,6 +32,8 @@ class PopMovie {
       vote_average: json['vote_average'],
       genres: json['genres'],
       actors: json['actors'],
+      homepage: json['homepage'],
+      release_date: json['release_date'],
     );
   }
 }
