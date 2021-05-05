@@ -39,9 +39,8 @@ class _DetailPopState extends State<DetailPop> {
     final response = await http
         // .post(Uri.parse("http://ubaya.prototipe.net/daniel/detailmovie.php"),
         .post(
-            // Uri.parse("http://localhost/emertech/local/detailmovie_actors.php"),
             Uri.parse(
-                "http://192.168.1.2/emertech/local/detailmovie_actors.php"),
+                "http://mlatifr.ddns.net/emertech/local/detailmovie_actors.php"),
 
             // parameter dikirim ke API
             body: {'id': widget.movie_id.toString()});

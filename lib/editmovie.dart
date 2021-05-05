@@ -26,7 +26,6 @@ class _EditPopMovieState extends State<EditPopMovie> {
         editpm = PopMovie.fromJson(item);
         EditPM.add(editpm);
       }
-      // print(editpm.title[0]);
       setState(() {});
     });
   }
@@ -34,7 +33,7 @@ class _EditPopMovieState extends State<EditPopMovie> {
   // tahap 3
   Future<String> fetchData() async {
     final response = await http.post(
-        Uri.parse("http://180.247.221.100/emertech/local/geteditmovie.php"),
+        Uri.parse("http://mlatifr.ddns.net/emertech/local/geteditmovie.php"),
 
         // parameter dikirim ke API
         body: {'id': widget.movie_id.toString()});
