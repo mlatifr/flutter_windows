@@ -83,16 +83,6 @@ class _DetailPopState extends State<DetailPop> {
                           ' as ' +
                           pm.actors[index]['character_name']);
                     })),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => EditPopMovie()));
-                },
-                child: Text('Edit'),
-              ),
-            ),
           ]));
     } else {
       return CircularProgressIndicator();
@@ -107,7 +97,21 @@ class _DetailPopState extends State<DetailPop> {
         ),
         body: ListView(children: <Widget>[
           // Text(widget.movie_id.toString()),
-          Center(child: tampilData())
+          Center(child: tampilData()),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => EditPopMovie(
+                              movie_id: widget.movie_id,
+                            )));
+              },
+              child: Text('Edit'),
+            ),
+          ),
         ]));
   }
 }

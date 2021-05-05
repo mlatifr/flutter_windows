@@ -9,9 +9,7 @@ List<PopMovie> PMs = [];
 // class PopMovie ==> menampung object
 class PopMovie {
   final int moive_id;
-  final String title;
-  final String overview;
-  final String vote_average;
+  final String title, overview, homepage, vote_average, realese_date;
   final List genres, actors;
 
   // parameter dari class PopMovie
@@ -19,11 +17,13 @@ class PopMovie {
       {this.moive_id,
       this.title,
       this.overview,
+      this.homepage,
       this.vote_average,
+      this.realese_date,
       this.genres,
       this.actors});
 
-  // factory untuk convert jason MAP ==> array of obaject
+  // factory untuk convert jason MAP ==> array of object
   factory PopMovie.fromJson(Map<String, dynamic> json) {
     return PopMovie(
       moive_id: json['movie_id'],
