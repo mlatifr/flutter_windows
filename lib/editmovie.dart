@@ -85,7 +85,9 @@ class _EditPopMovieState extends State<EditPopMovie> {
   // }
 
   String _title, _homepage, _overview = "";
-  final _controllerdate = TextEditingController()..text = editpm.release_date;
+  var _controllerdate = TextEditingController();
+  // ..text = editpm.release_date.toString();
+  // ..text = '123';
 
   // untuk kirim edit data
   void submit() async {
@@ -180,7 +182,7 @@ class _EditPopMovieState extends State<EditPopMovie> {
                       labelText: 'Release Date',
                     ),
                     // text berubah berdasarkan button kalender value
-                    controller: _controllerdate,
+                    controller: _controllerdate..text = editpm.release_date,
                   )),
                   // tombol kalender
                   ElevatedButton(
