@@ -101,6 +101,7 @@ class _DetailPopState extends State<DetailPop> {
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: ElevatedButton(
               onPressed: () {
+                angkaReload = 1;
                 Navigator.push(
                     context,
                     MaterialPageRoute(
