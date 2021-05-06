@@ -27,7 +27,10 @@ class _EditPopMovieState extends State<EditPopMovie> {
         editpm = PopMovie.fromJson(item);
         EditPM.add(editpm);
       }
-      setState(() {});
+      setState(() {
+        // untuk setting initial value dari release_date
+        _controllerdate..text = editpm.release_date;
+      });
     });
   }
 
@@ -182,7 +185,8 @@ class _EditPopMovieState extends State<EditPopMovie> {
                       labelText: 'Release Date',
                     ),
                     // text berubah berdasarkan button kalender value
-                    controller: _controllerdate..text = editpm.release_date,
+                    // controller: _controllerdate..text = editpm.release_date,
+                    controller: _controllerdate,
                   )),
                   // tombol kalender
                   ElevatedButton(
@@ -195,8 +199,8 @@ class _EditPopMovieState extends State<EditPopMovie> {
                             .then((value) {
                           setState(() {
                             // mengatur textform field
-                            _controllerdate.text =
-                                value.toString().substring(0, 10);
+                            _controllerdate
+                              ..text = value.toString().substring(0, 10);
                           });
                         });
                       },
