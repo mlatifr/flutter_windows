@@ -78,6 +78,9 @@ class _EditPopMovieState extends State<EditPopMovie> {
       if (json['result'] == 'success') {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(json.toString())));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Gagal Update!\n' + json.toString())));
       }
     } else {
       throw Exception('Failed to read API');
