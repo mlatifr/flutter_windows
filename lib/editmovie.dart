@@ -51,7 +51,9 @@ class _EditPopMovieState extends State<EditPopMovie> {
     }
   }
 
-  String _title, _homepage, _overview = "";
+  String _title = editpm.title,
+      _homepage = editpm.homepage,
+      _overview = editpm.overview;
   var _controllerdate = TextEditingController();
 
   // tahap 4
@@ -69,10 +71,10 @@ class _EditPopMovieState extends State<EditPopMovie> {
         });
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
-      print(json['result']);
+      print(json);
       if (json['result'] == 'success') {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Sukses Edit Data')));
+            .showSnackBar(SnackBar(content: Text(json.toString())));
       }
     } else {
       throw Exception('Failed to read API');
@@ -83,6 +85,14 @@ class _EditPopMovieState extends State<EditPopMovie> {
     if (angkaReload == 2) {
       return Column(
         children: [
+          Text(_title +
+              ' ' +
+              widget.movie_id.toString() +
+              ' ' +
+              angkaReload.toString() +
+              ' ' +
+              editpm.release_date.toString() +
+              ' '),
           Text(editpm.title +
               ' ' +
               widget.movie_id.toString() +
