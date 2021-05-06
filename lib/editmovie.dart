@@ -51,63 +51,28 @@ class _EditPopMovieState extends State<EditPopMovie> {
     }
   }
 
-  // tahap 4
-  // Widget tampilData() {
-  //   if (editpm != null) {
-  //     return Card(
-  //         elevation: 10,
-  //         margin: EdgeInsets.all(10),
-  //         child: Column(children: <Widget>[
-  //           Text(editpm.title, style: TextStyle(fontSize: 25)),
-  //           Padding(
-  //               padding: EdgeInsets.all(10),
-  //               child: Text(editpm.overview, style: TextStyle(fontSize: 15))),
-  //           Padding(padding: EdgeInsets.all(10), child: Text("Genre:")),
-  //           Padding(
-  //               padding: EdgeInsets.all(10),
-  //               child: ListView.builder(
-  //                   shrinkWrap: true,
-  //                   itemCount: editpm.genres.length,
-  //                   itemBuilder: (BuildContext ctxt, int index) {
-  //                     return new Text(editpm.genres[index]['genre_name']);
-  //                   })),
-  //           Padding(
-  //               padding: EdgeInsets.all(10),
-  //               child: ListView.builder(
-  //                   shrinkWrap: true,
-  //                   itemCount: editpm.actors.length,
-  //                   itemBuilder: (BuildContext ctxt, int index) {
-  //                     return new Text(editpm.actors[index]['person_name'] +
-  //                         ' as ' +
-  //                         editpm.actors[index]['character_name']);
-  //                   })),
-  //         ]));
-  //   } else {
-  //     return CircularProgressIndicator();
-  //   }
-  // }
-
   String _title, _homepage, _overview = "";
   var _controllerdate = TextEditingController();
-  // ..text = editpm.release_date.toString();
-  // ..text = '123';
 
+  // tahap 4
   // untuk kirim edit data
   void submit() async {
     final response = await http.post(
         // Uri.parse("http://ubaya.prototipe.net/daniel/newmovie.php"),
-        Uri.parse("http://192.168.1.2/emertech/local/editmovie.php"),
+        Uri.parse("http://mlatifr.ddns.net/emertech/local/editmovie.php"),
         body: {
           'title': _title,
           'overview': _overview,
           'homepage': _homepage,
-          'release_date': _controllerdate.text
+          'release_date': _controllerdate.text,
+          'movie_id': widget.movie_id.toString(),
         });
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
+      print(json['result']);
       if (json['result'] == 'success') {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Sukses Menambah Data')));
+            .showSnackBar(SnackBar(content: Text('Sukses Edit Data')));
       }
     } else {
       throw Exception('Failed to read API');
@@ -119,6 +84,8 @@ class _EditPopMovieState extends State<EditPopMovie> {
       return Column(
         children: [
           Text(editpm.title +
+              ' ' +
+              widget.movie_id.toString() +
               ' ' +
               angkaReload.toString() +
               ' ' +
@@ -185,7 +152,6 @@ class _EditPopMovieState extends State<EditPopMovie> {
                       labelText: 'Release Date',
                     ),
                     // text berubah berdasarkan button kalender value
-                    // controller: _controllerdate..text = editpm.release_date,
                     controller: _controllerdate,
                   )),
                   // tombol kalender

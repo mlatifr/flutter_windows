@@ -8,13 +8,13 @@ List<PopMovie> PMs = [];
 
 // class PopMovie ==> menampung object
 class PopMovie {
-  final int moive_id;
+  final int movie_id;
   final String title, overview, homepage, vote_average, release_date;
   final List genres, actors;
 
   // parameter dari class PopMovie
   PopMovie(
-      {this.moive_id,
+      {this.movie_id,
       this.title,
       this.overview,
       this.homepage,
@@ -26,7 +26,7 @@ class PopMovie {
   // factory untuk convert jason MAP ==> array of object
   factory PopMovie.fromJson(Map<String, dynamic> json) {
     return PopMovie(
-      moive_id: json['movie_id'],
+      movie_id: json['movie_id'],
       title: json['title'],
       overview: json['overview'],
       vote_average: json['vote_average'],
@@ -107,7 +107,7 @@ class _PopularMovieState extends State<PopularMovie> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    DetailPop(movie_id: PMs[index].moive_id),
+                                    DetailPop(movie_id: PMs[index].movie_id),
                               ),
                             );
                           }),

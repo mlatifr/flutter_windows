@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 import 'popularmovie.dart';
 
 class DetailPop extends StatefulWidget {
-  final int movie_id;
+  int movie_id;
+
   DetailPop({Key key, @required this.movie_id}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
