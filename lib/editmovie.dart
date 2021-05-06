@@ -30,6 +30,9 @@ class _EditPopMovieState extends State<EditPopMovie> {
       setState(() {
         // untuk setting initial value dari release_date
         _controllerdate..text = editpm.release_date;
+        _title = editpm.title;
+        _homepage = editpm.homepage;
+        _overview = editpm.overview;
       });
     });
   }
@@ -51,9 +54,9 @@ class _EditPopMovieState extends State<EditPopMovie> {
     }
   }
 
-  String _title = editpm.title,
-      _homepage = editpm.homepage,
-      _overview = editpm.overview;
+  String _title = "editpm.title",
+      _homepage = "editpm.homepage",
+      _overview = "editpm.overview";
   var _controllerdate = TextEditingController();
 
   // tahap 4
@@ -63,9 +66,9 @@ class _EditPopMovieState extends State<EditPopMovie> {
         // Uri.parse("http://ubaya.prototipe.net/daniel/newmovie.php"),
         Uri.parse("http://mlatifr.ddns.net/emertech/local/editmovie.php"),
         body: {
-          'title': _title,
-          'overview': _overview,
-          'homepage': _homepage,
+          'title': ''' ''$_title'' ''',
+          'overview': ''' ''$_overview'' ''',
+          'homepage': ''' ''$_homepage'' ''',
           'release_date': _controllerdate.text,
           'movie_id': widget.movie_id.toString(),
         });
