@@ -65,10 +65,17 @@ class _EditPopMovieState extends State<EditPopMovie> {
     final response = await http.post(
         // Uri.parse("http://ubaya.prototipe.net/daniel/newmovie.php"),
         Uri.parse("http://mlatifr.ddns.net/emertech/local/editmovie.php"),
+        // body: {
+        //   'title': ''' ''$_title'' ''',
+        //   'overview': ''' ''$_overview'' ''',
+        //   'homepage': ''' ''$_homepage'' ''',
+        //   'release_date': _controllerdate.text,
+        //   'movie_id': widget.movie_id.toString(),
+        // });
         body: {
-          'title': ''' ''$_title'' ''',
-          'overview': ''' ''$_overview'' ''',
-          'homepage': ''' ''$_homepage'' ''',
+          'title': ''' $_title''',
+          'overview': '''$_overview''',
+          'homepage': '''$_homepage''',
           'release_date': _controllerdate.text,
           'movie_id': widget.movie_id.toString(),
         });
@@ -137,6 +144,8 @@ class _EditPopMovieState extends State<EditPopMovie> {
                 // cek validasi alamat website
                 validator: (value) {
                   if (!Uri.parse(value).isAbsolute) {
+                    // ScaffoldMessenger.of(context).showSnackBar(
+                    //     SnackBar(content: Text('Gagal Update!\n')));
                     return 'alamat homepage salah';
                   }
                   return null;
