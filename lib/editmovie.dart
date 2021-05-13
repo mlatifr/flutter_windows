@@ -73,7 +73,7 @@ class _EditPopMovieState extends State<EditPopMovie> {
         //   'movie_id': widget.movie_id.toString(),
         // });
         body: {
-          'title': ''' $_title''',
+          'title': '''$_title''',
           'overview': '''$_overview''',
           'homepage': '''$_homepage''',
           'release_date': _controllerdate.text,
