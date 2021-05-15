@@ -51,8 +51,9 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   void doLogin() async {
     final response = await http.post(
-        Uri.parse("http://ubaya.prototipe.net/daniel/login.php"),
-        body: {'user_id': user_id, 'user_password': password});
+        // Uri.parse("http://ubaya.prototipe.net/daniel/login.php"),
+        Uri.parse("http://13.76.91.251/emertech/local/login.php"),
+        body: {'user_name': user_id, 'user_password': password});
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
       if (json['result'] == 'success') {
@@ -62,7 +63,7 @@ class _LoginState extends State<Login> {
         main();
       } else {
         setState(() {
-          error_login = "User id atau password error";
+          error_login = "User id atau password error: " + json.toString();
         });
       }
     } else {

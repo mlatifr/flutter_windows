@@ -50,7 +50,7 @@ class _PopularMovieState extends State<PopularMovie> {
   Future<String> fetchData() async {
     final response = await http.post(
         // Uri.http("ubaya.prototipe.net", '/daniel/movielist.php'),
-        Uri.http("mlatifr.ddns.net", '/emertech/local/movielist.php'),
+        Uri.http("13.76.91.251", '/emertech/local/movielist.php'),
         body: {'cari': _txtcari});
 
     // final response = await http

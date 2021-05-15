@@ -39,11 +39,11 @@ class _EditPopMovieState extends State<EditPopMovie> {
 
   // tahap 3
   Future<String> fetchData() async {
-    final response = await http.post(
-        Uri.parse("http://mlatifr.ddns.net/emertech/local/geteditmovie.php"),
+    final response = await http
+        .post(Uri.parse("http://13.76.91.251/emertech/local/geteditmovie.php"),
 
-        // parameter dikirim ke API
-        body: {'id': widget.movie_id.toString()});
+            // parameter dikirim ke API
+            body: {'id': widget.movie_id.toString()});
     if (response.statusCode == 200) {
       // return Future.delayed(Duration(milliseconds: 700), () => response.body)
       angkaReload = 2;
@@ -64,7 +64,7 @@ class _EditPopMovieState extends State<EditPopMovie> {
   void submit() async {
     final response = await http.post(
         // Uri.parse("http://ubaya.prototipe.net/daniel/newmovie.php"),
-        Uri.parse("http://mlatifr.ddns.net/emertech/local/editmovie.php"),
+        Uri.parse("http://13.76.91.251/emertech/local/editmovie.php"),
         // body: {
         //   'title': ''' ''$_title'' ''',
         //   'overview': ''' ''$_overview'' ''',

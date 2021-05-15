@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-String _temp = 'menunggu API';
+String _temp = 'menunggu API', _txtcariartis = '';
 List<Actor> actors = [];
 
 class Actor {
@@ -48,7 +48,7 @@ class actorList extends StatefulWidget {
 class _actorListState extends State<actorList> {
   Future<String> fetchData() async {
     final response = await http
-        .get(Uri.http("mlatifr.ddns.net", '/emertech/local/actorlist.php'));
+        .get(Uri.http("13.76.91.251", '/emertech/local/actorlist.php'));
     if (response.statusCode == 200) {
       // Future.delayed ==> untuk delay agar muncul gbr loadingnya
       return Future.delayed(Duration(milliseconds: 700), () => response.body);
@@ -91,6 +91,16 @@ class _actorListState extends State<actorList> {
         title: Text('Latif List Actor'),
       ),
       body: ListView(children: <Widget>[
+        TextFormField(
+          decoration: const InputDecoration(
+            icon: Icon(Icons.search),
+            labelText: 'cari nama artis:',
+          ),
+          onFieldSubmitted: (value) {
+            _txtcariartis = value;
+            bacaData();
+          },
+        ),
         Container(
             height: MediaQuery.of(context).size.height - 2,
             child: daftarActor()),
