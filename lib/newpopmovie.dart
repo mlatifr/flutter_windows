@@ -14,7 +14,7 @@ class _NewPopMovieState extends State<NewPopMovie> {
   void submit() async {
     final response = await http.post(
         // Uri.parse("http://ubaya.prototipe.net/daniel/newmovie.php"),
-        Uri.parse("http://13.76.91.251/emertech/local/newmovie.php"),
+        Uri.parse("http://52.148.78.159/emertech/local/newmovie.php"),
         body: {
           'title': _title,
           'overview': _overview,

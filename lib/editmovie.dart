@@ -40,7 +40,7 @@ class _EditPopMovieState extends State<EditPopMovie> {
   // tahap 3
   Future<String> fetchData() async {
     final response = await http
-        .post(Uri.parse("http://13.76.91.251/emertech/local/geteditmovie.php"),
+        .post(Uri.parse("http://52.148.78.159/emertech/local/geteditmovie.php"),
 
             // parameter dikirim ke API
             body: {'id': widget.movie_id.toString()});

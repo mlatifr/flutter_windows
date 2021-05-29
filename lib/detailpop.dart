@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/editmovie.dart';
 import 'package:http/http.dart' as http;
+import 'editpop_dosen.dart';
 import 'popularmovie.dart';
 
 class DetailPop extends StatefulWidget {
@@ -37,14 +38,13 @@ class _DetailPopState extends State<DetailPop> {
 
   // tahap 3
   Future<String> fetchData() async {
-    final response = await http
-        // .post(Uri.parse("http://ubaya.prototipe.net/daniel/detailmovie.php"),
-        .post(
-            Uri.parse(
-                "http://13.76.91.251/emertech/local/detailmovie_actors.php"),
+    final response = await http.post(
+        // Uri.parse("http://ubaya.prototipe.net/daniel/detailmovie.php"),
+        // .post(
+        Uri.parse("http://52.148.78.159/emertech/local/detailmovie_actors.php"),
 
-            // parameter dikirim ke API
-            body: {'id': widget.movie_id.toString()});
+        // parameter dikirim ke API
+        body: {'id': widget.movie_id.toString()});
     // print(response.body);
     if (response.statusCode == 200) {
       return response.body;
@@ -106,9 +106,14 @@ class _DetailPopState extends State<DetailPop> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => EditPopMovie(
-                              movie_id: widget.movie_id,
-                            )));
+                        builder: (context) =>
+                            EditPopMovieDosen(movie_id: widget.movie_id)));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => EditPopMovie(
+                //               movie_id: widget.movie_id,
+                //             )));
               },
               child: Text('Edit ' + widget.movie_id.toString()),
             ),

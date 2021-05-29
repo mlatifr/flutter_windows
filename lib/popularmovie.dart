@@ -9,7 +9,8 @@ List<PopMovie> PMs = [];
 // class PopMovie ==> menampung object
 class PopMovie {
   final int movie_id;
-  final String title, overview, homepage, vote_average, release_date;
+  String title, overview, homepage;
+  final String vote_average, release_date;
   final List genres, actors;
 
   // parameter dari class PopMovie
@@ -48,10 +49,10 @@ class PopularMovie extends StatefulWidget {
 class _PopularMovieState extends State<PopularMovie> {
   String _temp = 'menunggu API';
   Future<String> fetchData() async {
-    final response = await http.post(
-        // Uri.http("ubaya.prototipe.net", '/daniel/movielist.php'),
-        Uri.http("13.76.91.251", '/emertech/local/movielist.php'),
-        body: {'cari': _txtcari});
+    final response = await http
+        .post(Uri.http("ubaya.prototipe.net", '/daniel/movielist.php'),
+            // Uri.http("13.76.91.251", '/emertech/local/movielist.php'),
+            body: {'cari': _txtcari});
 
     // final response = await http
     //     .get(Uri.http("ubaya.prototipe.net", '/daniel/movielist.php'));

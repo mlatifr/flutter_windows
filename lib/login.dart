@@ -52,7 +52,7 @@ class _LoginState extends State<Login> {
   void doLogin() async {
     final response = await http.post(
         // Uri.parse("http://ubaya.prototipe.net/daniel/login.php"),
-        Uri.parse("http://13.76.91.251/emertech/local/login.php"),
+        Uri.parse("http://52.148.78.159/emertech/local/login.php"),
         body: {'user_name': user_id, 'user_password': password});
     if (response.statusCode == 200) {
       Map json = jsonDecode(response.body);
@@ -83,7 +83,8 @@ class _LoginState extends State<Login> {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.all(10),
-              child: TextField(
+              child: TextFormField(
+                initialValue: 'latif',
                 onChanged: (value) {
                   user_id = value;
                 },
@@ -96,7 +97,8 @@ class _LoginState extends State<Login> {
             Padding(
               padding: EdgeInsets.all(10),
               //padding: EdgeInsets.symmetric(horizontal: 15),
-              child: TextField(
+              child: TextFormField(
+                initialValue: 'latif',
                 onChanged: (value) {
                   password = value;
                 },
