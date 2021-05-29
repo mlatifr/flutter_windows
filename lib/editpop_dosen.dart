@@ -160,82 +160,95 @@ class EditPopMovieDosenState extends State<EditPopMovieDosen> {
         ),
         body: Form(
           key: _formKey,
-          child: Column(
-            children: <Widget>[
-              Padding(
-                  padding: EdgeInsets.all(10),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Title',
+          child: ListView(
+            children: [
+              Column(
+                children: <Widget>[
+                  Padding(
+                      padding: EdgeInsets.all(10),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: 'Title',
+                        ),
+                        onChanged: (value) {
+                          pm.title = value;
+                        },
+                        controller: _titleCont,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'judul harus diisi';
+                          }
+                          return null;
+                        },
+                      )),
+                  Padding(
+                      padding: EdgeInsets.all(10),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: 'Website',
+                        ),
+                        onChanged: (value) {
+                          pm.homepage = value;
+                        },
+                        controller: _homepageCont,
+                        validator: (value) {
+                          if (!Uri.parse(value).isAbsolute) {
+                            return 'alamat website salah';
+                          }
+                          return null;
+                        },
+                      )),
+                  Padding(
+                      padding: EdgeInsets.all(10),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: 'Overview',
+                        ),
+                        onChanged: (value) {
+                          pm.overview = value;
+                        },
+                        controller: _overviewCont,
+                        keyboardType: TextInputType.multiline,
+                        minLines: 3,
+                        maxLines: 6,
+                      )),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (!_formKey.currentState.validate()) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('Harap Isian diperbaiki')));
+                        } else {
+                          submit();
+                        }
+                      },
+                      child: Text('Submit'),
                     ),
-                    onChanged: (value) {
-                      pm.title = value;
-                    },
-                    controller: _titleCont,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'judul harus diisi';
-                      }
-                      return null;
-                    },
-                  )),
-              Padding(
-                  padding: EdgeInsets.all(10),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Website',
-                    ),
-                    onChanged: (value) {
-                      pm.homepage = value;
-                    },
-                    controller: _homepageCont,
-                    validator: (value) {
-                      if (!Uri.parse(value).isAbsolute) {
-                        return 'alamat website salah';
-                      }
-                      return null;
-                    },
-                  )),
-              Padding(
-                  padding: EdgeInsets.all(10),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Overview',
-                    ),
-                    onChanged: (value) {
-                      pm.overview = value;
-                    },
-                    controller: _overviewCont,
-                    keyboardType: TextInputType.multiline,
-                    minLines: 3,
-                    maxLines: 6,
-                  )),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (!_formKey.currentState.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Harap Isian diperbaiki')));
-                    } else {
-                      submit();
-                    }
-                  },
-                  child: Text('Submit'),
-                ),
+                  ),
+                  Padding(padding: EdgeInsets.all(10), child: Text('Genre:')),
+                  Padding(
+                      padding: EdgeInsets.all(10),
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: pm.genres.length,
+                          itemBuilder: (BuildContext ctxt, int index) {
+                            return Row(
+                              children: [
+                                new Text(pm.genres[index]['genre_name']),
+                                SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.3),
+                                ElevatedButton(
+                                    onPressed: null, child: Text('Hapus'))
+                              ],
+                            );
+                          })),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: comboGenre),
+                ],
               ),
-              Padding(padding: EdgeInsets.all(10), child: Text('Genre:')),
-              Padding(
-                  padding: EdgeInsets.all(10),
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: pm.genres.length,
-                      itemBuilder: (BuildContext ctxt, int index) {
-                        return new Text(pm.genres[index]['genre_name']);
-                      })),
-              Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: comboGenre),
             ],
           ),
         ));
