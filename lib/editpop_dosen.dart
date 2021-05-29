@@ -125,8 +125,31 @@ class EditPopMovieDosenState extends State<EditPopMovieDosen> {
           }).toList(),
           onChanged: (value) {
             //memnaggil fungsi menambah genre disini
+            addGenre(value);
           });
     });
+  }
+
+  void addGenre(genre_id) async {
+    final response = await http.post(
+        Uri.parse("http://ubaya.prototipe.net/daniel/addmoviegenre.php"),
+        body: {
+          'genre_id': genre_id.toString(),
+          'movie_id': widget.movie_id.toString()
+        });
+    if (response.statusCode == 200) {
+      print(response.body);
+      Map json = jsonDecode(response.body);
+      if (json['result'] == 'success') {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Sukses menambah genre')));
+        setState(() {
+          bacaData();
+        });
+      }
+    } else {
+      throw Exception('Failed to read API');
+    }
   }
 
   @override
