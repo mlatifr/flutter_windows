@@ -92,9 +92,11 @@ class EditPopMovieDosenState extends State<EditPopMovieDosen> {
 
   Future<String> fetchData() async {
     final response = await http.post(
-        Uri.parse("http://ubaya.prototipe.net/daniel/detailmovie.php"),
+        // Uri.parse("http://ubaya.prototipe.net/daniel/detailmovie.php"),
+        Uri.parse("http://52.148.78.159/emertech/local/detailmovie.php"),
         body: {'id': widget.movie_id.toString()});
     if (response.statusCode == 200) {
+      print(" addmoviegenre ${response.body}");
       return response.body;
     } else {
       throw Exception('Failed to read API');
@@ -132,7 +134,8 @@ class EditPopMovieDosenState extends State<EditPopMovieDosen> {
 
   void addGenre(genre_id) async {
     final response = await http.post(
-        Uri.parse("http://ubaya.prototipe.net/daniel/addmoviegenre.php"),
+        // Uri.parse("http://ubaya.prototipe.net/daniel/addmoviegenre.php"),
+        Uri.parse("http://52.148.78.159/emertech/local/addmoviegenre.php"),
         body: {
           'genre_id': genre_id.toString(),
           'movie_id': widget.movie_id.toString()
@@ -240,7 +243,10 @@ class EditPopMovieDosenState extends State<EditPopMovieDosen> {
                                     width: MediaQuery.of(context).size.width *
                                         0.3),
                                 ElevatedButton(
-                                    onPressed: null, child: Text('Hapus'))
+                                    // nanti ada fungsi hapus genre dengan parameter
+                                    //movie_id dan genre_id
+                                    onPressed: null,
+                                    child: Text('Hapus'))
                               ],
                             );
                           })),

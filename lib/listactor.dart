@@ -48,7 +48,7 @@ class actorList extends StatefulWidget {
 class _actorListState extends State<actorList> {
   Future<String> fetchData() async {
     final response = await http
-        .get(Uri.http("13.76.91.251", '/emertech/local/actorlist.php'));
+        .get(Uri.http("52.148.78.159", '/emertech/local/actorlist.php'));
     if (response.statusCode == 200) {
       // Future.delayed ==> untuk delay agar muncul gbr loadingnya
       return Future.delayed(Duration(milliseconds: 700), () => response.body);
