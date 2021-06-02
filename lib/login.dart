@@ -49,6 +49,13 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  @override
+  void initState() {
+    super.initState();
+    user_id = 'admin';
+    password = 'admin';
+  }
+
   void doLogin() async {
     final response = await http.post(
         // Uri.parse("http://ubaya.prototipe.net/daniel/login.php"),
@@ -84,7 +91,7 @@ class _LoginState extends State<Login> {
             Padding(
               padding: EdgeInsets.all(10),
               child: TextFormField(
-                initialValue: 'latif',
+                initialValue: 'admin',
                 onChanged: (value) {
                   user_id = value;
                 },
@@ -98,14 +105,14 @@ class _LoginState extends State<Login> {
               padding: EdgeInsets.all(10),
               //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextFormField(
-                initialValue: 'latif',
+                initialValue: 'admin',
                 onChanged: (value) {
                   password = value;
                 },
                 obscureText: true,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Password',
+                    labelText: 'Password:admin',
                     hintText: 'Enter secure password'),
               ),
             ),

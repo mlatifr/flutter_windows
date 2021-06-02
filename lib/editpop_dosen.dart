@@ -1,8 +1,11 @@
 import 'dart:convert';
-
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'popularmovie.dart';
+import 'dart:io';
+
+File _image = null;
 
 class EditPopMovieDosen extends StatefulWidget {
   int movie_id;
@@ -155,6 +158,59 @@ class EditPopMovieDosenState extends State<EditPopMovieDosen> {
     }
   }
 
+  _imgGaleri() async {
+    final picker = ImagePicker();
+    final image = await picker.getImage(
+        source: ImageSource.gallery,
+        imageQuality: 50,
+        maxHeight: 600,
+        maxWidth: 600);
+    setState(() {
+      _image = File(image.path);
+    });
+  }
+
+  _imgKamera() async {
+    final picker = ImagePicker();
+    final image =
+        await picker.getImage(source: ImageSource.camera, imageQuality: 20);
+    setState(() {
+      _image = File(image.path);
+    });
+  }
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              color: Colors.white,
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      tileColor: Colors.white,
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Galeri'),
+                      onTap: () {
+                        _imgGaleri();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text('Kamera'),
+                    onTap: () {
+                      _imgKamera();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -215,6 +271,18 @@ class EditPopMovieDosenState extends State<EditPopMovieDosen> {
                         minLines: 3,
                         maxLines: 6,
                       )),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: GestureDetector(
+                      onTap: () {
+                        _showPicker(context);
+                      },
+                      child: _image != null
+                          ? Image.file(_image)
+                          : Image.network(
+                              "http://ubaya.prototipe.net/daniel/blank.png"),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     child: ElevatedButton(
