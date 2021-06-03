@@ -83,10 +83,23 @@ class _DetailPopState extends State<DetailPop> {
                           ' as ' +
                           pm.actors[index]['character_name']);
                     })),
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: Image.network("http://ubaya.prototipe.net/daniel/images/" +
+                  widget.movie_id.toString() +
+                  ".jpg"),
+            ),
           ]));
     } else {
       return CircularProgressIndicator();
     }
+  }
+
+  Future onGoBack(dynamic value) {
+    print("masuk goback");
+    setState(() {
+      bacaData();
+    });
   }
 
   @override
@@ -104,10 +117,12 @@ class _DetailPopState extends State<DetailPop> {
               onPressed: () {
                 angkaReload = 1;
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            EditPopMovieDosen(movie_id: widget.movie_id)));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        EditPopMovieDosen(movie_id: widget.movie_id),
+                  ),
+                ).then(onGoBack);
                 // Navigator.push(
                 //     context,
                 //     MaterialPageRoute(

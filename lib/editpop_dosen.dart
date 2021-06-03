@@ -50,6 +50,22 @@ class EditPopMovieDosenState extends State<EditPopMovieDosen> {
   }
 
   void submit() async {
+    List<int> imageBytes = _image.readAsBytesSync();
+    print(imageBytes);
+    String base64Image = base64Encode(imageBytes);
+    final response2 = await http.post(
+        Uri.parse(
+          'http://ubaya.prototipe.net/daniel/uploadpopmovieposter.php',
+        ),
+        body: {
+          'movie_id': widget.movie_id.toString(),
+          'image': base64Image,
+        });
+    if (response2.statusCode == 200) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(response2.body)));
+    }
+
     final response = await http.post(
         Uri.parse("http://ubaya.prototipe.net/daniel/updatemovie.php"),
         body: {
